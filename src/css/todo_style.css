@@ -44,6 +44,11 @@ body {
   font-family: 'Lexend Exa';
 }
 
+.dashboard
+{
+  background-color: var(--swatch-primary);
+}
+
 div.banner {
   background-image: linear-gradient(to bottom,         
   #b8b808, #636723);
@@ -56,6 +61,7 @@ div.banner {
   padding-left: 10%;
   padding-top: 5%;
   padding-bottom: 5%;
+  padding-right: 25%;
 }
 
 .home_new_list_button {
@@ -63,4 +69,34 @@ div.banner {
 }
 .home_new_list_button:hover {
   box-shadow: 1px 2px;
+}
+
+.home_your_lists_container
+{
+  font-size: 36pt;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
+}
+
+.your_lists_heading
+{
+  font-size: 27pt;
+  font-weight: bolder;
+}
+
+.home_new_list_button
+{
+  font-size: 40pt;
+}
+
+.home_new_list_button:hover { 
+  box-shadow: 1px 2px;
+}
+
+.card
+{
+  background-color: var(--swatch-boundary);
 }
