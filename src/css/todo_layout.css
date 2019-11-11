@@ -20,9 +20,10 @@ body {
   top: 5%;
 }
 
-.dashboard
+.dashboard, .todo-list
 {
   width: 90%;
+  margin-top: 5%;
 }
 
 div.banner {
@@ -45,6 +46,58 @@ div.banner {
 .your_lists_heading
 {
   margin-left: 25px;
+}
+
+.todo-lists
+{
+  margin-top: -20px;
+}
+
+.list-heading-container
+{
+  position: relative;
+}
+
+.list-heading, .list-trash {
+  position: absolute;
+}
+
+.list-trash
+{
+  left: 85%;
+  width: 15%;
+  text-align: right;
+}
+
+.list_item_card, .list_item_add_card, .list_item_header_card {
+  position: relative;
+  height: 75px;
+  grid-row-gap: 0px;
+  grid-column-gap: 50px;
+  margin-top: 0px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.list_item_task_header, .list_item_due_date_header, .list_item_status_header {
+  position: absolute;
+  top: 12%;
+}
+
+.list_item_task_header
+{
+  left: 2%;
+}
+
+.list_item_due_date_header
+{
+  left: 35%;
+}
+
+.list_item_status_header
+{
+  left: 60%;
 }
 
 form {

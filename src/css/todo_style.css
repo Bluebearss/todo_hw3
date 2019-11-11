@@ -44,7 +44,7 @@ body {
   font-family: 'Lexend Exa';
 }
 
-.dashboard
+.dashboard, .todo-list
 {
   background-color: var(--swatch-primary);
 }
@@ -96,7 +96,50 @@ div.banner {
   box-shadow: 1px 2px;
 }
 
-.card
+.todo-list-link
 {
   background-color: var(--swatch-boundary);
+}
+
+.list-heading
+{
+  font-size: 26pt;
+}
+
+.list-trash {
+  font-size: 44pt;
+}
+
+.list-trash:hover {
+  color: var(--swatch-accent);
+  cursor: pointer;
+}
+
+.list_item_header_card
+{
+  background-color: var(--swatch-accent);
+}
+
+.list_item_task_header, .list_item_due_date_header, .list_item_status_header {
+  font-weight: bold;
+  font-size: 28pt;
+}
+
+.list_item_task_header:hover, .list_item_due_date_header:hover, .list_item_status_header:hover {
+  color: var(--swatch-primary);
+}
+
+.list_item_card, .list_item_add_card
+{
+  background-color: var(--swatch-neutral);
+}
+
+.list_item_card:hover, .list_item_add_card:hover
+{
+  background-color: var(--swatch-complement);
+}
+
+.list_item_add_card {
+  font-weight: bold;
+  font-size: 24pt;
 }
