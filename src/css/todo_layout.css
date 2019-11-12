@@ -85,19 +85,35 @@ div.banner {
   top: 12%;
 }
 
-.list_item_task_header
+.list_item_task_header, .list_item_card_assigned_to
 {
   left: 2%;
 }
 
-.list_item_due_date_header
+.list_item_due_date_header, .list_item_card_due_date
 {
   left: 35%;
 }
 
-.list_item_status_header
+.list_item_status_header, .list_item_card_completed
 {
   left: 60%;
+}
+
+.list_item_card_description {
+  position: absolute;
+  left: 2%;
+}
+
+.list_item_card_description
+{
+  top: 10%;
+}
+
+.list_item_card_assigned_to, .list_item_card_due_date, 
+.list_item_card_completed {
+  position: absolute;
+  top: 55%;
 }
 
 form {
