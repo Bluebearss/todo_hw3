@@ -1,3 +1,5 @@
+import { firestore } from "firebase";
+
 // THIS FILE KNOWS HOW TO MAKE ALL THE ACTION
 // OBJECDTS THAT WE WILL USE. ACTIONS ARE SIMPLE
 // LITTLE PACKAGES THAT REPRESENT SOME EVENT
@@ -11,6 +13,10 @@ export const REGISTER_ERROR = 'REGISTER_ERROR';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export const CREATE_TODO_LIST = 'CREATE_TODO_LIST';
+export const CREATE_TODO_LIST_ERROR = 'CREATE_TODO_LIST_ERROR';
+export const GO_HOME = 'GO_HOME';
+
 
 // THESE CREATORS MAKE ACTIONS ASSOCIATED WITH USER ACCOUNTS
 
@@ -32,14 +38,49 @@ export function logoutSuccess() {
 
 // THESE CREATORS MAKE ACTIONS FOR ASYNCHRONOUS TODO LIST UPDATES
 export function createTodoList(todoList) {
-    return {
-        type: 'CREATE_TODO_LIST',
-        todoList
+    return (dispatch, getState, { getFirestore }) => {
+        const fireStore = getFirestore();
+        firestore.collection('todoLists').add({
+            ...todoList,
+            created: new Date()
+        }).then((documentRef) => {
+            dispatch( { type: 'CREATE_TODO_LIST', payload: documentRef.id });
+        }).catch(error => {
+            dispatch({ type: 'CREATE_TODO_LIST_ERROR' });
+        });
     }
 }
 export function createTodoListError(error) {
     return {
         type: 'CREATE_TODO_LIST_ERROR',
         error
+    }
+}
+export function goHome() {
+    return {
+        type: 'GO_HOME'
+    }
+}
+export function prependList(id){
+    return (dispatch, getState, { getFirestore }) => {
+        const fireStore = getFirestore();
+        const ref = fireStore.collection('todoLists').doc(id);
+        ref.get().then(function (doc) {
+            if (doc.exists) {
+                const name = doc.data().name;
+                const owner = doc.data().owner;
+                const items = doc.data().items;
+                fireStore.collection('todoLists').doc(id).set({
+                    name: name,
+                    owner: owner,
+                    items: items,
+                    created: new Date()
+                })
+            } else {
+                console.log("There is no such document in existence.");
+            }
+        }).catch(function (error) {
+            console.log("There was an error in getting the document:", error);
+        });
     }
 }

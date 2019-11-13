@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import ItemsList from './ItemsList.js'
 import { firestoreConnect } from 'react-redux-firebase';
+import { prependList } from '../../store/actions/actionCreators';
 
 class ListScreen extends Component {
     state = {
@@ -18,6 +19,11 @@ class ListScreen extends Component {
             ...state,
             [target.id]: target.value,
         }));
+    }
+
+    componentDidMount = () =>
+    {
+        this.props.prependList(this.props.todoList.id);
     }
 
     render() {
@@ -43,12 +49,12 @@ class ListScreen extends Component {
                 <br />
                 <br />
                 <div className="input-field">
-                    <label htmlFor="email">Name:</label>
-                    <input className="active" type="text" name="name" id="name" onChange={this.handleChange} value={todoList.name} />
+                    <label htmlFor="email" className="active">Name:</label>
+                    <input type="text" name="name" id="name" onChange={this.handleChange} value={todoList.name} />
                 </div>
                 <div className="input-field">
-                    <label htmlFor="password">Owner:</label>
-                    <input className="active" type="text" name="owner" id="owner" onChange={this.handleChange} value={todoList.owner} />
+                    <label htmlFor="password" className="active">Owner:</label>
+                    <input type="text" name="owner" id="owner" onChange={this.handleChange} value={todoList.owner} />
                 </div>
                 <div id="list-items-container">
                     <div className="list_item_header_card">
@@ -90,8 +96,13 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
+const mapDispatchToProps = (dispatch) => ({
+    deleteList: (todoList, firebase) => dispatch(deleteListHandler(todoList, firebase)),
+    prependList: (id) => dispatch(prependList(id))
+});
+
 export default compose(
-  connect(mapStateToProps),
+  connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect([
     { collection: 'todoLists' },
   ]),

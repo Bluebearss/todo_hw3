@@ -3,9 +3,24 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { NavLink, Redirect } from 'react-router-dom';
 import { firestoreConnect } from 'react-redux-firebase';
-import TodoListLinks from './TodoListLinks'
+import TodoListLinks from './TodoListLinks';
+import { createTodoList } from '../../store/actions/actionCreators';
 
 class HomeScreen extends Component {
+    handleNewList = (e) =>
+    {
+        e.preventDefault();
+
+        this.props.createTodoList(this.state);
+    }
+
+    componentWillReceiveProps = (afterProps) =>
+    {
+        if (afterProps.id !== '')
+        {
+            this.props.history.push('/todoList/' + this.props.id);
+        }
+    }
 
     render() {
         if (!this.props.auth.uid) {
@@ -40,13 +55,21 @@ class HomeScreen extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        auth: state.firebase.auth
+        todoLists: state.firebase.ordered.todoLists,
+        auth: state.firebase.auth,
+        id: state.todoList.id
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        createTodoList: (todoList) => dispatch(createTodoList(todoList))
     };
 };
 
 export default compose(
-    connect(mapStateToProps),
+    connect(mapStateToProps, mapDispatchToProps),
     firestoreConnect([
-      { collection: 'todoLists' },
+      { collection: 'todoLists', orderBy: ['created', 'desc'] },
     ]),
 )(HomeScreen);

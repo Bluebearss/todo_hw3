@@ -1,17 +1,24 @@
 import React from 'react';
 import {Button, Icon} from 'react-materialize';
+import { relative } from 'path';
+
+const button_style = 
+{
+    position: 'absolute',
+    left: '91.2%',
+    top: '10%'
+};
 
 const hover_button = 
-    <Button
+    <Button style = {button_style}
     floating
     fab={{direction: 'left'}}
-    className="red"
+    className="amber darken-2"
     large
     >
-    <Button floating icon={<Icon />} className="red" />
-    <Button floating icon={<Icon />} className="yellow darken-1" />
-    <Button floating icon={<Icon />} className="green" />
-    <Button floating icon={<Icon />} className="blue" />
+    <Button floating icon={<Icon children = 'wc' />} className="blue" />
+    <Button floating icon={<Icon children = 'airline_seat_individual_suite' />} className="pink darken-4" />
+    <Button floating icon={<Icon children = 'child_care' />} className="red" />
     </Button>;
 
 class ItemCard extends React.Component {

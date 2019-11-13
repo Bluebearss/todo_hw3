@@ -5,8 +5,13 @@ import { compose } from 'redux';
 import { firebaseConnect } from 'react-redux-firebase';
 import LoggedInLinks from './LoggedInLinks';
 import LoggedOutLinks from './LoggedOutLinks';
+import { goHome } from '../../store/actions/actionCreators';
 
 class Navbar extends React.Component {
+  handleGoHome = (e) =>
+  {
+    this.props.goHome();
+  }
 
   render() {
     const { auth, profile } = this.props;
@@ -15,7 +20,7 @@ class Navbar extends React.Component {
     return (
       <nav className="nav-wrapper grey darken-3">
         <div className="container">
-          <Link to="/" className="brand-logo">@todo</Link>
+          <Link to="/" className="brand-logo" onClick = {this.handleGoHome}>@todo</Link>
           {links}
         </div>
       </nav>
@@ -28,7 +33,13 @@ const mapStateToProps = state => ({
   profile: state.firebase.profile,
 });
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+      goHome: () => dispatch(goHome())
+  };
+};
+
 export default compose(
   firebaseConnect(),
-  connect(mapStateToProps),
+  connect(mapStateToProps, mapDispatchToProps),
 )(Navbar);
