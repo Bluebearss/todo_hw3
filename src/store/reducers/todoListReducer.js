@@ -9,20 +9,18 @@ const todoListReducer = (state = initState, action) => {
     switch (action.type) {
         /* IF YOU HAVE ANY TODO LIST EDITING REDUCERS ADD THEM HERE */ 
         case actionCreators.GO_HOME:
-            return
-            {
+            return {
                 ...state,
                 id: ''
             };
+
         case actionCreators.CREATE_TODO_LIST:
-            return
-            {
+            return {
                 ...state,
                 id: action.payload
             };
         case actionCreators.CREATE_TODO_LIST_ERROR:
-            return
-            {
+            return {
                 ...state
             }
         default:

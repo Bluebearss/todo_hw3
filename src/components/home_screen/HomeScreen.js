@@ -7,6 +7,12 @@ import TodoListLinks from './TodoListLinks';
 import { createTodoList } from '../../store/actions/actionCreators';
 
 class HomeScreen extends Component {
+    state = {
+        name: 'Unknown',
+        owner: 'Unknown',
+        items: []
+    }
+    
     handleNewList = (e) =>
     {
         e.preventDefault();

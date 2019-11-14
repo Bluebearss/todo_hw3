@@ -16,6 +16,7 @@ export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const CREATE_TODO_LIST = 'CREATE_TODO_LIST';
 export const CREATE_TODO_LIST_ERROR = 'CREATE_TODO_LIST_ERROR';
 export const GO_HOME = 'GO_HOME';
+export const EDIT_LIST_NAME_OWNER = 'EDIT_LIST_NAME_OWNER';
 
 
 // THESE CREATORS MAKE ACTIONS ASSOCIATED WITH USER ACCOUNTS
@@ -40,7 +41,7 @@ export function logoutSuccess() {
 export function createTodoList(todoList) {
     return (dispatch, getState, { getFirestore }) => {
         const fireStore = getFirestore();
-        firestore.collection('todoLists').add({
+        fireStore.collection('todoLists').add({
             ...todoList,
             created: new Date()
         }).then((documentRef) => {
@@ -80,6 +81,32 @@ export function prependList(id){
                 console.log("There is no such document in existence.");
             }
         }).catch(function (error) {
+            console.log("There was an error in getting the document:", error);
+        });
+    }
+}
+export function editNameandOwner (todoList, state) {
+    return (dispatch, getState, { getFirestore }) => {
+        const fireStore = getFirestore();
+        const ref = fireStore.collection('todoLists').doc(todoList.id);
+        ref.get().then(function(doc) {
+            if (doc.exists)
+            {
+                const name = state.name;
+                const owner = state.owner;
+                const items = doc.data().items;
+                fireStore.collection('todoLists').doc(todoList.id).set({
+                    name: name,
+                    owner: owner,
+                    items: items,
+                    created: new Date()
+                })
+            }
+            else
+            {
+                console.log("There is no such document in existence.");
+            }
+        }).catch(function(error) {
             console.log("There was an error in getting the document:", error);
         });
     }

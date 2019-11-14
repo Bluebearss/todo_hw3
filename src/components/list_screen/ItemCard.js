@@ -27,7 +27,7 @@ class ItemCard extends React.Component {
         const { item } = this.props; 
         const status = item.completed ? "Completed" : "Pending";
         const color = item.completed ? {color: 'green'} : {color: 'red'};
-        
+
         return (
             <div className="card z-depth-0 list_item_card">
                 <div className="card-content grey-text text-darken-3">

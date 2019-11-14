@@ -4,12 +4,34 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import ItemsList from './ItemsList.js'
 import { firestoreConnect } from 'react-redux-firebase';
-import { prependList } from '../../store/actions/actionCreators';
+import { prependList, editNameandOwner} from '../../store/actions/actionCreators';
+
+class Toggle extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        isChecked: props.isChecked || false,
+      };
+      
+      this.handleChange = this.handleChange.bind(this);
+    }
+    handleChange() {
+      this.setState({ isChecked: !this.state.isChecked })
+    }
+    render () {
+      return (
+        <label className="switch">
+          <input type="checkbox" value={this.state.isChecked} onChange={this.handleChange} />
+          <div className="slider"></div>
+        </label>
+      );
+    }
+}
 
 class ListScreen extends Component {
     state = {
-        name: '',
-        owner: '',
+        name: this.props.todoList.name,
+        owner: this.props.todoList.owner,
     }
 
     handleChange = (e) => {
@@ -18,7 +40,9 @@ class ListScreen extends Component {
         this.setState(state => ({
             ...state,
             [target.id]: target.value,
-        }));
+        }), () => {
+            this.props.editNameandOwner(this.props.todoList, this.state);
+        });
     }
 
     componentDidMount = () =>
@@ -50,11 +74,11 @@ class ListScreen extends Component {
                 <br />
                 <div className="input-field">
                     <label htmlFor="email" className="active">Name:</label>
-                    <input type="text" name="name" id="name" onChange={this.handleChange} value={todoList.name} />
+                    <input type="text" name="name" id="name" onChange={this.handleChange} defaultValue={todoList.name} />
                 </div>
                 <div className="input-field">
                     <label htmlFor="password" className="active">Owner:</label>
-                    <input type="text" name="owner" id="owner" onChange={this.handleChange} value={todoList.owner} />
+                    <input type="text" name="owner" id="owner" onChange={this.handleChange} defaultValue={todoList.owner} />
                 </div>
                 <div id="list-items-container">
                     <div className="list_item_header_card">
@@ -74,7 +98,8 @@ class ListScreen extends Component {
                         +
                     </div>
 
-                </div> 
+                    <Toggle isChecked />
+                </div>
             </div>
         );
     }
@@ -97,8 +122,9 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    deleteList: (todoList, firebase) => dispatch(deleteListHandler(todoList, firebase)),
-    prependList: (id) => dispatch(prependList(id))
+    // deleteList: (todoList, firebase) => dispatch(deleteListHandler(todoList, firebase)),
+    prependList: (id) => dispatch(prependList(id)),
+    editNameandOwner: (todoList, state) => dispatch(editNameandOwner(todoList, state)),
 });
 
 export default compose(
