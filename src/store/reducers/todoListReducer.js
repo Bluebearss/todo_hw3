@@ -22,7 +22,11 @@ const todoListReducer = (state = initState, action) => {
         case actionCreators.CREATE_TODO_LIST_ERROR:
             return {
                 ...state
-            }
+            };
+        case actionCreators.DELETE_SUCCESS:
+            return {
+                ...state
+            };
         default:
             return state;
             break;

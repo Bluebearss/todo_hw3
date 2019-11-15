@@ -17,7 +17,7 @@ export const CREATE_TODO_LIST = 'CREATE_TODO_LIST';
 export const CREATE_TODO_LIST_ERROR = 'CREATE_TODO_LIST_ERROR';
 export const GO_HOME = 'GO_HOME';
 export const EDIT_LIST_NAME_OWNER = 'EDIT_LIST_NAME_OWNER';
-
+export const DELETE_SUCCESS = 'DELETE_SUCCESS';
 
 // THESE CREATORS MAKE ACTIONS ASSOCIATED WITH USER ACCOUNTS
 
@@ -85,7 +85,8 @@ export function prependList(id){
         });
     }
 }
-export function editNameandOwner (todoList, state) {
+export function editNameandOwner (todoList, state) 
+{
     return (dispatch, getState, { getFirestore }) => {
         const fireStore = getFirestore();
         const ref = fireStore.collection('todoLists').doc(todoList.id);
@@ -111,3 +112,14 @@ export function editNameandOwner (todoList, state) {
         });
     }
 }
+export function deleteSuccess()
+{
+    return { type: 'DELETE_SUCCESS' }
+};
+export function deleteList(todoList)
+{
+    return {
+        type: 'DELETE_TODO_LIST',
+        todoList
+    }
+};
