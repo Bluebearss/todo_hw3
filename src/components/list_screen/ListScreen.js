@@ -5,6 +5,8 @@ import { compose } from 'redux';
 import ItemsList from './ItemsList.js'
 import { firestoreConnect } from 'react-redux-firebase';
 import { prependList, editNameandOwner} from '../../store/actions/actionCreators';
+import { Modal, Button } from 'react-materialize';
+import { deleteListHandler } from '../../store/database/asynchHandler';
 
 class Toggle extends React.Component {
     constructor(props) {
@@ -28,6 +30,8 @@ class Toggle extends React.Component {
     }
 }
 
+const trashbin = <div className="list-trash">&#x1f5d1;</div>
+
 class ListScreen extends Component {
     state = {
         name: this.props.todoList.name,
@@ -43,6 +47,17 @@ class ListScreen extends Component {
         }), () => {
             this.props.editNameandOwner(this.props.todoList, this.state);
         });
+    }
+
+    handleDeleteList = (e) => {
+      e.preventDefault();
+
+      const { props, state } = this;
+      const { firebase } = props;
+      const todoList = this.props.todoList;
+
+      props.deleteList(todoList, firebase);
+      this.props.history.push("/");
     }
 
     componentDidMount = () =>
@@ -67,7 +82,17 @@ class ListScreen extends Component {
                 <br />
                 <div className="list-heading-container">
                     <h5 className="grey-text text-darken-3 list-heading">Todo List</h5>
-                    <div className="list-trash">&#x1f5d1;</div>
+                    <Modal className = "modal_container" header="Hello User!" trigger={trashbin}>
+                        Delete list?<br /><br /><br />
+                        <div className= "modal_text">Are you sure you want to delete this list?</div>
+                        <div>If not, click the Close Button below.</div>
+                        <br /><br />
+                        <button className = "modal_yes_button" onClick = {this.handleDeleteList}>
+                            Yes
+                        </button><br /><br />
+            
+                        <div>The list will not be retreivable.</div>
+                    </Modal>
                 </div>
                 <br />
                 <br />
@@ -122,7 +147,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    // deleteList: (todoList, firebase) => dispatch(deleteListHandler(todoList, firebase)),
+    deleteList: (todoList, firebase) => dispatch(deleteListHandler(todoList, firebase)),
     prependList: (id) => dispatch(prependList(id)),
     editNameandOwner: (todoList, state) => dispatch(editNameandOwner(todoList, state)),
 });

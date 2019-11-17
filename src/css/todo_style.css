@@ -134,7 +134,17 @@ div.banner {
   background-color: var(--swatch-neutral);
 }
 
-.list_item_card:hover, .list_item_add_card:hover
+.modal, .modal-footer
+{
+  background-color: var(--swatch-complement) !important;
+}
+
+.modal-close
+{
+  border: 1px solid black;
+}
+
+.list_item_card:hover, .list_item_add_card:hover, .modal_container
 {
   background-color: var(--swatch-complement);
 }
@@ -202,4 +212,14 @@ input:checked + .slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
+}
+
+.modal_container
+{
+  font-size: 15pt;
+}
+
+.modal_text
+{
+  font-weight: bold;
 }

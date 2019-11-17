@@ -116,6 +116,11 @@ div.banner {
   top: 55%;
 }
 
+.modal_yes_button
+{
+  padding: 3%
+}
+
 form {
   padding: 20px;
   margin-top: 60px;

@@ -37,7 +37,7 @@ export const registerHandler = (newUser, firebase) => (dispatch, getState, { get
 export const deleteListHandler = (todoList, firebase) => (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
 
-    firebase.collection('todoLists').doc(todoList.id).delete().then(() => {
+    firestore.collection('todoLists').doc(todoList.id).delete().then(() => {
       dispatch(actionCreators.deleteSuccess);
     });
 };
