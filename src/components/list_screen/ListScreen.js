@@ -8,28 +8,6 @@ import { prependList, editNameandOwner} from '../../store/actions/actionCreators
 import { Modal, Button } from 'react-materialize';
 import { deleteListHandler } from '../../store/database/asynchHandler';
 
-class Toggle extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        isChecked: props.isChecked || false,
-      };
-      
-      this.handleChange = this.handleChange.bind(this);
-    }
-    handleChange() {
-      this.setState({ isChecked: !this.state.isChecked })
-    }
-    render () {
-      return (
-        <label className="switch">
-          <input type="checkbox" value={this.state.isChecked} onChange={this.handleChange} />
-          <div className="slider"></div>
-        </label>
-      );
-    }
-}
-
 const trashbin = <div className="list-trash">&#x1f5d1;</div>
 
 class ListScreen extends Component {
@@ -122,8 +100,6 @@ class ListScreen extends Component {
                     <div className = "list_item_add_card center-align">
                         +
                     </div>
-
-                    <Toggle isChecked />
                 </div>
             </div>
         );
