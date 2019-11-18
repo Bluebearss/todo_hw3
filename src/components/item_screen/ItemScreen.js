@@ -43,7 +43,7 @@ class ItemScreen extends Component {
         const { props, state } = this;
         const { firebase, itemid } = props;
         var todoList = this.props.todoList;
-        var changedItem = { ...state };
+        const changedItem = { ...state };
 
         if (itemid === todoList.length)
         {

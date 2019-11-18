@@ -20,9 +20,9 @@ class HomeScreen extends Component {
         this.props.createTodoList(this.state);
     }
 
-    componentWillReceiveProps = (afterProps) =>
+    componentWillReceiveProps = (afterProps) => 
     {
-        if (afterProps.id !== '')
+        if(afterProps.id != "") 
         {
             this.props.history.push('/todoList/' + this.props.id);
         }

@@ -50,3 +50,30 @@ export const addItemHandler = (todoList, firebase) => (dispatch, getState, { get
          dispatch(actionCreators.addItemSuccess);
        });
 };
+
+export const sortByTaskHandler = (todoList, firebase, sortedItems) => (dispatch, getState, { getFirestore }) => {
+  const firestore = getFirestore();
+
+  firestore.collection('todoLists').doc(todoList.id).set({name: todoList.name, owner: todoList.owner,
+     items: todoList.items, created: new Date()}).then(() => {
+       dispatch(actionCreators.sortSuccess);
+     });
+};
+
+export const sortByDueDateHandler = (todoList, firebase, sortedItems) => (dispatch, getState, { getFirestore }) => {
+  const firestore = getFirestore();
+
+  firestore.collection('todoLists').doc(todoList.id).set({name: todoList.name, owner: todoList.owner,
+     items: todoList.items, created: new Date()}).then(() => {
+       dispatch(actionCreators.sortSuccess);
+     });
+};
+
+export const sortByStatusHandler = (todoList, firebase, sortedItems) => (dispatch, getState, { getFirestore }) => {
+  const firestore = getFirestore();
+
+  firestore.collection('todoLists').doc(todoList.id).set({name: todoList.name, owner: todoList.owner,
+     items: todoList.items, created: new Date()}).then(() => {
+       dispatch(actionCreators.sortSuccess);
+     });
+};

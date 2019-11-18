@@ -1,5 +1,3 @@
-import { firestore } from "firebase";
-
 // THIS FILE KNOWS HOW TO MAKE ALL THE ACTION
 // OBJECDTS THAT WE WILL USE. ACTIONS ARE SIMPLE
 // LITTLE PACKAGES THAT REPRESENT SOME EVENT
@@ -19,6 +17,7 @@ export const GO_HOME = 'GO_HOME';
 export const EDIT_LIST_NAME_OWNER = 'EDIT_LIST_NAME_OWNER';
 export const DELETE_SUCCESS = 'DELETE_SUCCESS';
 export const ADD_ITEM_SUCCESS = 'ADD_ITEM_SUCCESS';
+export const SORT_SUCCESS = 'SORT_SUCCESS';
 
 // THESE CREATORS MAKE ACTIONS ASSOCIATED WITH USER ACCOUNTS
 
@@ -127,4 +126,8 @@ export function deleteList(todoList)
 export function addItemSuccess()
 {
     return { type: 'ADD_ITEM_SUCCESS' }
+};
+export function sortSuccess()
+{
+    return { type: 'SORT_SUCCESS' }
 };

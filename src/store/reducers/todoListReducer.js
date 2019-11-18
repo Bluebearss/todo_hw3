@@ -13,7 +13,6 @@ const todoListReducer = (state = initState, action) => {
                 ...state,
                 id: ''
             };
-
         case actionCreators.CREATE_TODO_LIST:
             return {
                 ...state,
@@ -28,6 +27,10 @@ const todoListReducer = (state = initState, action) => {
                 ...state
             };
         case actionCreators.ADD_ITEM_SUCCESS:
+            return {
+                ...state
+            };
+        case actionCreators.SORT_SUCCESS:
             return {
                 ...state
             };

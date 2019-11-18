@@ -1,6 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 import {Button, Icon} from 'react-materialize';
 import { relative } from 'path';
+import { firestoreConnect } from 'react-redux-firebase';
+
 
 const button_style = 
 {
@@ -22,6 +26,11 @@ const hover_button =
     </Button>;
 
 class ItemCard extends React.Component {
+    state = {
+        item: this.props.item,
+        todoList: this.props.todoList,
+        index: this.props.index,
+    }
 
     render() {
         const { item } = this.props; 

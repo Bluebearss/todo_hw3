@@ -48,15 +48,20 @@ class ListScreen extends Component {
 
       if (this.state.sortingCriteria === "taskIncreasing")
       {
-        this.setState({sortingCriteria: "taskDecreasing"});
+        this.setState({sortingCriteria: "taskDecreasing"}, () => 
+        {
+          let sortedItems = items.sort(this.compare);
+          props.sortByTask(todoList, firebase, sortedItems);
+        });
       }
       else
       {
-        this.setState({sortingCriteria: "taskIncreasing"});
+        this.setState({sortingCriteria: "taskIncreasing"}, () => 
+        {
+          let sortedItems = items.sort(this.compare);
+          props.sortByTask(todoList, firebase, sortedItems);
+        });
       }
-
-      let sortedItems = items.sort(this.compare);
-      props.sortByTask(todoList, firebase, sortedItems);
     }
 
     handleDueDateSort = () => {
@@ -67,15 +72,91 @@ class ListScreen extends Component {
 
       if (this.state.sortingCriteria === "dueDateIncreasing")
       {
-        this.setState({sortingCriteria: "dueDateDecreasing"});
+        this.setState({sortingCriteria: "dueDateDecreasing"}, () => 
+        {
+          let sortedItems = items.sort(this.compare);
+          props.sortByDueDate(todoList, firebase, sortedItems);
+        });
       }
       else
       {
-        this.setState({sortingCriteria: "dueDateIncreasing"});
+        this.setState({sortingCriteria: "dueDateIncreasing"}, () => 
+        {
+          let sortedItems = items.sort(this.compare);
+          props.sortByDueDate(todoList, firebase, sortedItems);
+        });
       }
+    }
 
-      let sortedItems = items.sort(this.compare);
-      props.sortByDueDate(todoList, firebase, sortedItems);
+    handleStatusSort = () => {
+      const { props, state } = this;
+      const { firebase } = props;
+      const todoList = this.props.todoList;
+      var items = todoList.items;
+
+      if (this.state.sortingCriteria === "statusIncreasing")
+      {
+        this.setState({sortingCriteria: "statusDecreasing"}, () => 
+        {
+          let sortedItems = items.sort(this.compare);
+          props.sortByStatus(todoList, firebase, sortedItems);
+        });
+      }
+      else
+      {
+        this.setState({sortingCriteria: "statusIncreasing"}, () => 
+        {
+          let sortedItems = items.sort(this.compare);
+          props.sortByStatus(todoList, firebase, sortedItems);
+        });
+      }
+    }
+
+    compare = (item1, item2) => 
+    {
+      let criteria = this.state.sortingCriteria;
+
+      // IF IT'S A DECREASING CRITERIA SWAP THE ITEMS
+      if ((criteria === "taskDecreasing") || (criteria === "dueDateDecreasing") || (criteria === "statusDecreasing"))
+      {
+        let temp = item1;
+        item1 = item2;
+        item2 = temp;
+      }
+      
+      // SORT BY ITEM DESCRIPTION
+      if ((criteria === "taskDecreasing") || (criteria === "taskIncreasing"))
+      {
+        if (item1.description < item2.description)
+            return -1;
+        else if (item1.description > item2.description)
+            return 1;
+        else
+            return 0;
+      }
+      // SORT BY COMPLETED
+      else
+      {
+        if ((criteria === "statusDecreasing") || (criteria === "statusIncreasing"))
+        {
+          if (item1.completed < item2.completed)
+              return -1;
+          else if (item1.completed > item2.completed)
+              return 1;
+          else
+              return 0;
+        }
+        // SORT BY DUE DATE
+        else
+        {
+          if (item1.due_date < item2.due_date)
+              return -1;
+          else if (item1.due_date > item2.due_date)
+              return 1;
+          else
+              return 0;
+        }
+      }
     }
 
     componentDidMount = () =>
@@ -133,13 +214,13 @@ class ListScreen extends Component {
                 </div>
                 <div id="list-items-container">
                     <div className="list_item_header_card">
-                        <div className="list_item_task_header">
+                        <div className="list_item_task_header" onClick={this.handleTaskSort}>
                             Task
                         </div>
-                        <div className="list_item_due_date_header">
+                        <div className="list_item_due_date_header" onClick={this.handleDueDateSort}>
                             Due Date
                         </div>
-                        <div className="list_item_status_header">
+                        <div className="list_item_status_header" onClick={this.handleStatusSort}>
                             Status
                         </div>
                     </div>
@@ -171,6 +252,9 @@ const mapDispatchToProps = (dispatch) => ({
     deleteList: (todoList, firebase) => dispatch(deleteListHandler(todoList, firebase)),
     prependList: (id) => dispatch(prependList(id)),
     editNameandOwner: (todoList, state) => dispatch(editNameandOwner(todoList, state)),
+    sortByTask: (todoList, firebase, sortedItems) => dispatch(sortByTaskHandler(todoList, firebase, sortedItems)),
+    sortByDueDate: (todoList, firebase, sortedItems) => dispatch(sortByDueDateHandler(todoList, firebase, sortedItems)),
+    sortByStatus: (todoList, firebase, sortedItems) => dispatch(sortByStatusHandler(todoList, firebase, sortedItems)),
 });
 
 export default compose(
