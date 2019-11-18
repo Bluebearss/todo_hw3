@@ -16,9 +16,9 @@ const hover_button =
     className="amber darken-2"
     large
     >
-    <Button floating icon={<Icon children = 'wc' />} className="blue" />
-    <Button floating icon={<Icon children = 'airline_seat_individual_suite' />} className="pink darken-4" />
-    <Button floating icon={<Icon children = 'child_care' />} className="red" />
+    <Button floating icon={<Icon children = 'arrow_upward' />} className="blue" />
+    <Button floating icon={<Icon children = 'arrow_downward' />} className="pink darken-4" />
+    <Button floating icon={<Icon children = 'close' />} className="red" />
     </Button>;
 
 class ItemCard extends React.Component {

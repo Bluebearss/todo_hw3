@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import ItemCard from './ItemCard';
@@ -11,13 +12,20 @@ class ItemsList extends React.Component {
         console.log("ItemsList: todoList.id " + todoList.id);
         return (
             <div className="todo-lists section">
-                {items && items.map(function(item) {
+                {items && items.map(function(item, index) {
                     item.id = item.key;
                     return (
-                        <ItemCard todoList={todoList} item={item} />
-                    );})
+                        <Link to={"/itemScreen/" + todoList.id + "/" + index}>
+                            <ItemCard todoList={todoList} item={item} />
+                        </Link>
+                    );
+                })
                 }
+                <Link to={"/itemScreen/" + todoList.id + "/" + items.length}>
+                    <div className = "list_item_add_card black-text center-align">+</div>
+                </Link>
             </div>
+
         );
     }
 }

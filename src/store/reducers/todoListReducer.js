@@ -27,6 +27,10 @@ const todoListReducer = (state = initState, action) => {
             return {
                 ...state
             };
+        case actionCreators.ADD_ITEM_SUCCESS:
+            return {
+                ...state
+            };
         default:
             return state;
             break;

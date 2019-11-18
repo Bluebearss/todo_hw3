@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import ItemsList from './ItemsList.js'
+import ItemsList from './ItemsList.js';
 import { firestoreConnect } from 'react-redux-firebase';
 import { prependList, editNameandOwner} from '../../store/actions/actionCreators';
 import { Modal, Button } from 'react-materialize';
 import { deleteListHandler } from '../../store/database/asynchHandler';
+import { sortByTaskHandler, sortByDueDateHandler, sortByStatusHandler } from '../../store/database/asynchHandler';
 
 const trashbin = <div className="list-trash">&#x1f5d1;</div>
 
 class ListScreen extends Component {
     state = {
-        name: this.props.todoList.name,
-        owner: this.props.todoList.owner,
+        name: this.props.todoList === undefined ? '' : this.props.todoList.name,
+        owner: this.props.todoList === undefined ? '' : this.props.todoList.owner,
+        sortingCriteria: '',
     }
 
     handleChange = (e) => {
@@ -38,9 +40,55 @@ class ListScreen extends Component {
       this.props.history.push("/");
     }
 
+    handleTaskSort = () => {
+      const { props, state } = this;
+      const { firebase } = props;
+      const todoList = this.props.todoList;
+      var items = todoList.items;
+
+      if (this.state.sortingCriteria === "taskIncreasing")
+      {
+        this.setState({sortingCriteria: "taskDecreasing"});
+      }
+      else
+      {
+        this.setState({sortingCriteria: "taskIncreasing"});
+      }
+
+      let sortedItems = items.sort(this.compare);
+      props.sortByTask(todoList, firebase, sortedItems);
+    }
+
+    handleDueDateSort = () => {
+      const { props, state } = this;
+      const { firebase } = props;
+      const todoList = this.props.todoList;
+      var items = todoList.items;
+
+      if (this.state.sortingCriteria === "dueDateIncreasing")
+      {
+        this.setState({sortingCriteria: "dueDateDecreasing"});
+      }
+      else
+      {
+        this.setState({sortingCriteria: "dueDateIncreasing"});
+      }
+
+      let sortedItems = items.sort(this.compare);
+      props.sortByDueDate(todoList, firebase, sortedItems);
+    }
+
     componentDidMount = () =>
     {
-        this.props.prependList(this.props.todoList.id);
+        if (this.props.todoList)
+        {
+          this.props.prependList(this.props.todoList.id);
+        }
+        else
+        {
+          this.props.history.push("/");
+        }
+        
     }
 
     render() {
@@ -97,9 +145,6 @@ class ListScreen extends Component {
                     </div>
 
                     <ItemsList todoList={todoList} />
-                    <div className = "list_item_add_card center-align">
-                        +
-                    </div>
                 </div>
             </div>
         );
