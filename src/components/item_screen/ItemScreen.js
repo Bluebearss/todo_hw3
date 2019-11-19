@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { firebaseConnect, firestoreConnect } from 'react-redux-firebase';
+import { firestoreConnect } from 'react-redux-firebase';
 import { addItemHandler } from '../../store/database/asynchHandler';
 
 class ItemScreen extends Component {
@@ -60,7 +60,6 @@ class ItemScreen extends Component {
 
     getItemStateFieldValue = (stateName) =>
     {
-        const { props, state } = this;
         switch(stateName) {
             case "description":
                 return this.state.description;

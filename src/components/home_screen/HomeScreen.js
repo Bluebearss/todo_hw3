@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { NavLink, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { firestoreConnect } from 'react-redux-firebase';
 import TodoListLinks from './TodoListLinks';
 import { createTodoList } from '../../store/actions/actionCreators';
@@ -22,7 +22,7 @@ class HomeScreen extends Component {
 
     componentWillReceiveProps = (afterProps) => 
     {
-        if(afterProps.id != "") 
+        if(afterProps.id !== "") 
         {
             this.props.history.push('/todoList/' + this.props.id);
         }

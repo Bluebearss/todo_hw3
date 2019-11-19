@@ -5,7 +5,7 @@ import { compose } from 'redux';
 import ItemsList from './ItemsList.js';
 import { firestoreConnect } from 'react-redux-firebase';
 import { prependList, editNameandOwner} from '../../store/actions/actionCreators';
-import { Modal, Button } from 'react-materialize';
+import { Modal } from 'react-materialize';
 import { deleteListHandler } from '../../store/database/asynchHandler';
 import { sortByTaskHandler, sortByDueDateHandler, sortByStatusHandler } from '../../store/database/asynchHandler';
 import { moveUpHandler, moveDownHandler, deleteItemHandler } from '../../store/database/asynchHandler';
@@ -33,7 +33,7 @@ class ListScreen extends Component {
     handleDeleteList = (e) => {
       e.preventDefault();
 
-      const { props, state } = this;
+      const { props } = this;
       const { firebase } = props;
       const todoList = this.props.todoList;
 
@@ -42,7 +42,7 @@ class ListScreen extends Component {
     }
 
     handleTaskSort = () => {
-      const { props, state } = this;
+      const { props } = this;
       const { firebase } = props;
       const todoList = this.props.todoList;
       var items = todoList.items;
@@ -66,7 +66,7 @@ class ListScreen extends Component {
     }
 
     handleDueDateSort = () => {
-      const { props, state } = this;
+      const { props } = this;
       const { firebase } = props;
       const todoList = this.props.todoList;
       var items = todoList.items;
@@ -90,7 +90,7 @@ class ListScreen extends Component {
     }
 
     handleStatusSort = () => {
-      const { props, state } = this;
+      const { props } = this;
       const { firebase } = props;
       const todoList = this.props.todoList;
       var items = todoList.items;
@@ -164,7 +164,7 @@ class ListScreen extends Component {
     {
       event.preventDefault();
 
-      const { props, state } = this;
+      const { props } = this;
       const { firebase } = props;
       const todoList = this.props.todoList;
       var items = todoList.items;
@@ -184,7 +184,7 @@ class ListScreen extends Component {
     {
       event.preventDefault();
 
-      const { props, state } = this;
+      const { props } = this;
       const { firebase } = props;
       const todoList = this.props.todoList;
       var items = todoList.items;
@@ -204,7 +204,7 @@ class ListScreen extends Component {
     {
       event.preventDefault();
 
-      const { props, state } = this;
+      const { props } = this;
       const { firebase } = props;
       const todoList = this.props.todoList;
       var items = todoList.items;

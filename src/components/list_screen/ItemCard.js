@@ -1,9 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
 import {Button, Icon} from 'react-materialize';
-import { relative } from 'path';
-import { firestoreConnect } from 'react-redux-firebase';
 
 class ItemCard extends React.Component {
     state = {
@@ -13,7 +9,7 @@ class ItemCard extends React.Component {
     }
 
     render() {
-        const { item, todoList, index } = this.props; 
+        const { item, index } = this.props; 
         const status = item.completed ? "Completed" : "Pending";
         const color = item.completed ? {color: 'green'} : {color: 'red'};
 
@@ -23,7 +19,7 @@ class ItemCard extends React.Component {
             left: '91.2%',
             top: '10%'
         };
-        
+
         const hover_button = 
         <Button style = {button_style}
         floating
