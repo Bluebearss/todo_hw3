@@ -8,6 +8,7 @@ import { prependList, editNameandOwner} from '../../store/actions/actionCreators
 import { Modal, Button } from 'react-materialize';
 import { deleteListHandler } from '../../store/database/asynchHandler';
 import { sortByTaskHandler, sortByDueDateHandler, sortByStatusHandler } from '../../store/database/asynchHandler';
+import { moveUpHandler, moveDownHandler, deleteItemHandler } from '../../store/database/asynchHandler';
 
 const trashbin = <div className="list-trash">&#x1f5d1;</div>
 
@@ -159,6 +160,59 @@ class ListScreen extends Component {
       }
     }
 
+    handleMoveUp = (index, event) =>
+    {
+      event.preventDefault();
+
+      const { props, state } = this;
+      const { firebase } = props;
+      const todoList = this.props.todoList;
+      var items = todoList.items;
+
+      if ((index > 0) && (index < items.length))
+      {
+        let newItems = items;
+        let temp = newItems[index];
+        newItems[index] = newItems[index - 1];
+        newItems[index - 1] = temp;
+
+        props.moveUp(todoList, firebase, newItems);
+      }
+    }
+
+    handleMoveDown = (index, event) =>
+    {
+      event.preventDefault();
+
+      const { props, state } = this;
+      const { firebase } = props;
+      const todoList = this.props.todoList;
+      var items = todoList.items;
+
+      if ((items.length > 1) && (index < items.length - 1))
+      {
+        let newItems = items;
+        let temp = newItems[index];
+        newItems[index] = newItems[index + 1];
+        newItems[index + 1] = temp;
+
+        props.moveDown(todoList, firebase, newItems);
+      }
+    }
+
+    handleDeleteItem = (key, event) =>
+    {
+      event.preventDefault();
+
+      const { props, state } = this;
+      const { firebase } = props;
+      const todoList = this.props.todoList;
+      var items = todoList.items;
+
+      let newItems = items.splice(key, 1);
+      props.deleteItem(todoList, firebase, newItems);
+    }
+
     componentDidMount = () =>
     {
         if (this.props.todoList)
@@ -225,7 +279,8 @@ class ListScreen extends Component {
                         </div>
                     </div>
 
-                    <ItemsList todoList={todoList} />
+                    <ItemsList handleMoveUp={this.handleMoveUp} handleMoveDown={this.handleMoveDown} 
+                    handleDeleteItem={this.handleDeleteItem} todoList={todoList} />
                 </div>
             </div>
         );
@@ -255,6 +310,9 @@ const mapDispatchToProps = (dispatch) => ({
     sortByTask: (todoList, firebase, sortedItems) => dispatch(sortByTaskHandler(todoList, firebase, sortedItems)),
     sortByDueDate: (todoList, firebase, sortedItems) => dispatch(sortByDueDateHandler(todoList, firebase, sortedItems)),
     sortByStatus: (todoList, firebase, sortedItems) => dispatch(sortByStatusHandler(todoList, firebase, sortedItems)),
+    moveUp: (todoList, firebase, newItems) => dispatch(moveUpHandler(todoList, firebase, newItems)),
+    moveDown: (todoList, firebase, newItems) => dispatch(moveDownHandler(todoList, firebase, newItems)),
+    deleteItem: (todoList, firebase, newItems) => dispatch(deleteItemHandler(todoList, firebase, newItems)),
 });
 
 export default compose(

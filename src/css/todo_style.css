@@ -44,7 +44,7 @@ body {
   font-family: 'Lexend Exa';
 }
 
-.dashboard, .todo-list
+.dashboard, .todo-list, .todo-item
 {
   background-color: var(--swatch-primary);
 }
@@ -178,4 +178,9 @@ div.banner {
 .modal_text
 {
   font-weight: bold;
+}
+
+.item_form_submit_button, .item_form_cancel_button
+{
+    font-size: 14.5pt;
 }

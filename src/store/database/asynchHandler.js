@@ -77,3 +77,30 @@ export const sortByStatusHandler = (todoList, firebase, sortedItems) => (dispatc
        dispatch(actionCreators.sortSuccess);
      });
 };
+
+export const moveUpHandler = (todoList, firebase, newItems) => (dispatch, getState, { getFirestore }) => {
+  const firestore = getFirestore();
+
+  firestore.collection('todoLists').doc(todoList.id).set({name: todoList.name, owner: todoList.owner,
+     items: todoList.items, created: new Date()}).then(() => {
+       dispatch(actionCreators.moveUpSuccess);
+     });
+};
+
+export const moveDownHandler = (todoList, firebase, newItems) => (dispatch, getState, { getFirestore }) => {
+  const firestore = getFirestore();
+
+  firestore.collection('todoLists').doc(todoList.id).set({name: todoList.name, owner: todoList.owner,
+     items: todoList.items, created: new Date()}).then(() => {
+       dispatch(actionCreators.moveDownSuccess);
+     });
+};
+
+export const deleteItemHandler = (todoList, firebase, newItems) => (dispatch, getState, { getFirestore }) => {
+  const firestore = getFirestore();
+
+  firestore.collection('todoLists').doc(todoList.id).set({name: todoList.name, owner: todoList.owner,
+     items: todoList.items, created: new Date()}).then(() => {
+       dispatch(actionCreators.deleteItemSuccess);
+     });
+};

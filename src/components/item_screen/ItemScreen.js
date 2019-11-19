@@ -89,9 +89,9 @@ class ItemScreen extends Component {
             return <Redirect to="/" />;
         }
         return (
-            <div className="container">
-                <form onSubmit={this.handleSubmitItemChanges} className="white">
-                    <h5 className="grey-text text-darken-3">Item</h5>
+            <div className="container todo-item">
+                <form onSubmit={this.handleSubmitItemChanges}>
+                    <h5 className="grey-text text-darken-3">Item Screen</h5>
                     <div className="input-field">
                         <label className="active" htmlFor="description">Description</label>
                         <input type="text" name="description" id="description" 
@@ -121,10 +121,10 @@ class ItemScreen extends Component {
                         </p>
                     </div>
                     <div className="input-field">
-                        <button type="submit" className="btn pink lighten-1 z-depth-0">
-                            Submit Change
+                        <button type="submit" className="btn z-depth-0 item_form_submit_button">
+                            Submit
                         </button>
-                        <button className="btn pink lighten-1 z-depth-0" onClick={this.cancelItemChanges}>
+                        <button className="btn z-depth-0 item_form_cancel_button" onClick={this.cancelItemChanges}>
                             Cancel
                         </button>
                     </div>

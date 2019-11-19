@@ -34,6 +34,18 @@ const todoListReducer = (state = initState, action) => {
             return {
                 ...state
             };
+        case actionCreators.MOVE_UP_SUCCESS:
+            return {
+                ...state
+            };
+        case actionCreators.MOVE_DOWN_SUCCESS:
+            return {
+                ...state
+            };
+        case actionCreators.DELETE_ITEM_SUCCESS:
+            return {
+                ...state
+            };
         default:
             return state;
             break;

@@ -5,26 +5,6 @@ import {Button, Icon} from 'react-materialize';
 import { relative } from 'path';
 import { firestoreConnect } from 'react-redux-firebase';
 
-
-const button_style = 
-{
-    position: 'absolute',
-    left: '91.2%',
-    top: '10%'
-};
-
-const hover_button = 
-    <Button style = {button_style}
-    floating
-    fab={{direction: 'left'}}
-    className="amber darken-2"
-    large
-    >
-    <Button floating icon={<Icon children = 'arrow_upward' />} className="blue" />
-    <Button floating icon={<Icon children = 'arrow_downward' />} className="pink darken-4" />
-    <Button floating icon={<Icon children = 'close' />} className="red" />
-    </Button>;
-
 class ItemCard extends React.Component {
     state = {
         item: this.props.item,
@@ -33,9 +13,31 @@ class ItemCard extends React.Component {
     }
 
     render() {
-        const { item } = this.props; 
+        const { item, todoList, index } = this.props; 
         const status = item.completed ? "Completed" : "Pending";
         const color = item.completed ? {color: 'green'} : {color: 'red'};
+
+        const button_style = 
+        {
+            position: 'absolute',
+            left: '91.2%',
+            top: '10%'
+        };
+        
+        const hover_button = 
+        <Button style = {button_style}
+        floating
+        fab={{direction: 'left'}}
+        className="amber darken-2"
+        large
+        >
+        <Button onClick = {this.props.handleMoveUp.bind(this, index)}
+        floating icon={<Icon children = 'arrow_upward' />} className="blue" />
+        <Button onClick = {this.props.handleMoveDown.bind(this, index)}
+        floating icon={<Icon children = 'arrow_downward' />} className="pink darken-4" />
+        <Button onClick = {this.props.handleDeleteItem.bind(this, index)}
+        floating icon={<Icon children = 'close' />} className="red" />
+        </Button>;
 
         return (
             <div className="card z-depth-0 list_item_card">
